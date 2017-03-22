@@ -1,0 +1,18 @@
+
+service: nodrainer
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  memorySize: 256
+  versionFunctions: false
+  role: arn:aws:iam::824064767219:role/nodrainer
+
+functions:
+  contact:
+    handler: handler.contact
+    events:
+      - http:
+          path: contact
+          method: post
+          cors: true
