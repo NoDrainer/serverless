@@ -16,3 +16,5 @@ functions:
           path: contact
           method: post
           cors: true
+    environment:
+      sender: notification@nodrainer.com

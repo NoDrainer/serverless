@@ -3,9 +3,8 @@
 var AWS = require('aws-sdk')
 var ses = new AWS.SES();
 
-//var SENDER = '$sender-email$';
-var SENDER = 'dmitrief@gmail.com';
-var RECEIVER = 'dmitrief@gmail.com';
+var SENDER = process.env.sender;
+var RECEIVER = process.env.receiver;
 
 module.exports.contact = (event, context, callback) => {
   let req = JSON.parse(event.body);
@@ -13,12 +12,11 @@ module.exports.contact = (event, context, callback) => {
     if (err) {
       callback(err);
     } else {
-      console.log('--- sendEmail callback');
       var res = {
         statusCode: 200,
-        //headers: { "Access-Control-Allow-Origin": "*" },
+        headers: { "Access-Control-Allow-Origin": "*" },
         body: JSON.stringify({
-          message: 'Email sent'
+          message: 'Email sent',
         })
       };
       callback(null, res);
@@ -45,5 +43,5 @@ function sendEmail(event, done) {
     },
     Source: SENDER
   };
-  ses.sendEmail(params, done)
+  ses.sendEmail(params, done);
 }
